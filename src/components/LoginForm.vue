@@ -65,7 +65,7 @@
        stateObj: {
           register :{
              name: 'Register',
-             message: 'Aleady have an Acoount? login.'
+             message: 'Aleady have an Acount? Login.'
           },
           login : {
              name: 'Login',

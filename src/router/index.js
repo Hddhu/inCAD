@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import LoginForm from '../components/LoginForm.vue'
 import DashBoard from '../components/DashBoard.vue'
+// import ToolBar from '../components/ToolBar.vue';
 
 Vue.use(Router)
 

@@ -1,51 +1,55 @@
 <template>
-    <v-app>
-        <v-toolbar color="primary" dark fixed app>
-            <v-toolbar-title>Application</v-toolbar-title>
+    <v-app>      
+        <v-toolbar id="toolbar" color="primary" dark fixed app>
+            <v-toolbar-title><b>inCAD</b></v-toolbar-title>
           </v-toolbar>
-     <v-navigation-drawer permanent>
-            <v-list>
-              <v-list-item class="px-2">
-                <v-list-item-avatar>
-                  <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
-                </v-list-item-avatar>
-              </v-list-item>
-    
-              <v-list-item link>
+      <div class="d-flex flex-row h-100">
+      <v-navigation-drawer permanent>
+              <v-list>
+                <v-list-item class="px-2">
+                  <v-list-item-avatar>
+                    <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                  </v-list-item-avatar>
+                </v-list-item>
+      
+                <v-list-item link>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      {{username || 'Username'}}
+                    </v-list-item-title>
+                    <v-list-item-subtitle v-on:click="logout">log out</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+      
+            <v-divider></v-divider>
+      
+            <v-list
+              dense
+              nav
+            >
+              <v-list-item
+                v-for="item in items"
+                :key="item.title"
+                link
+              >
+                <v-list-item-icon>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+      
                 <v-list-item-content>
-                  <v-list-item-title class="text-h6">
-                    {{username || 'Username'}}
-                  </v-list-item-title>
-                  <v-list-item-subtitle v-on:click="logout">log out</v-list-item-subtitle>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-    
-          <v-divider></v-divider>
-    
-          <v-list
-            dense
-            nav
-          >
-            <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              link
-            >
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-    
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
+          </v-navigation-drawer>
+          <h1>Test</h1>
+        </div>
     </v-app>
     </template>
     
     <script>
+    import ToolBar from './ToolBar.vue'
       export default {
         data () {
           return {
@@ -61,6 +65,15 @@
           logout() {
             this.$router.replace({name:'login'})
           }
+        },
+        components: {
+          ToolBar,
         }
       }
     </script>
+
+    <style>
+  #toolbar {
+    flex:0;
+  }  
+</style>

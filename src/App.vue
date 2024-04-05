@@ -4,7 +4,6 @@
   </v-container>
   </template>
   
-  
   <style>
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -12,4 +11,9 @@
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
   }
+
+  .container {
+    padding: 0;
+  }
   </style>
+
