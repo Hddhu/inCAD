@@ -33,12 +33,12 @@
                                name="confirmPassword"
                                label="Confirm Password"
                                type="password"
-                               placeholder="cocnfirm password"
+                               placeholder="confirm password"
                                required
                             ></v-text-field>
                             <div class="red--text"> {{errorMessage}}</div>
                             <v-btn type="submit" class="mt-4" color="primary" value="log in">{{isRegister ? stateObj.register.name : stateObj.login.name}}</v-btn>
-                            <div class="grey--text mt-4" v-on:click="isRegister = !isRegister;">
+                            <div id="toggleMessage" class="mt-4" color="primary" v-on:click="isRegister = !isRegister;">
                                {{toggleMessage}}  
                             </div>
                        </form>
@@ -65,7 +65,7 @@
        stateObj: {
           register :{
              name: 'Register',
-             message: 'Aleady have an Acount? Login.'
+             message: 'Already have an account? Login.'
           },
           login : {
              name: 'Login',
@@ -96,3 +96,9 @@
      }
  };
  </script>
+
+ <style>
+ #toggleMessage {
+   cursor: pointer;
+ }
+</style>
