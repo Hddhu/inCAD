@@ -14,6 +14,7 @@
 
   .container {
     padding: 0;
+    height: 100vh;
   }
   </style>
 
