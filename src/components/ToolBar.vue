@@ -1,6 +1,7 @@
 <template>
   <v-toolbar class="toolbar" color="primary" dark fixed>
     <v-img class="toolbar-logo" height="56" src="../assets/images/incad_logo_small.png"></v-img>
+    <v-btn icon><v-icon>mdi-book-open-variant-outline</v-icon></v-btn>
     <div class="text-center">
       <v-menu
         location="start"
