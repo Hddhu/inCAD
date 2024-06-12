@@ -17,7 +17,9 @@ import Split from 'split.js'
 export default {
   mounted(){
     Split(['#split-0', '#split-1', '#split-2', '#split-3'], {
-        minSize: 150,
+      minSize: [0, 150, 150, 150], // Set minSize for each pane
+      sizes: [25, 25, 25, 25], // Optional: initial sizes in percentages
+      gutterSize: 10, // Size of the gutter between the panes
     })
   },
   data() {
@@ -59,8 +61,4 @@ export default {
     cursor: col-resize;
 }
 
-/* .v-application--wrap {
-  flex: none;
-  flex-direction: row;
-} */
 </style>
