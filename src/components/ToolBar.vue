@@ -55,7 +55,7 @@ export default {
     },
     logout() {
       this.$router.replace({ name: 'login' });
-      //TODO Log out are you sure
+      //TODO Log out, are you sure
     },
   },
 }
