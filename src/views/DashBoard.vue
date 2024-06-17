@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import ToolBar from './ToolBar.vue';
-import SystemPane from './SystemPane.vue'
-import Split from 'split.js';
+import ToolBar from '../components/ToolBar.vue'
+import SystemPane from '../components/SystemPane.vue'
+import Split from 'split.js'
 
 export default {
   data() {
