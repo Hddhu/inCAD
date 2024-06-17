@@ -107,7 +107,6 @@ export default {
 #system {
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-width: fit-content;
 }
 
@@ -129,6 +128,7 @@ export default {
   height: 100%; 
   width: 100%;
   overflow: auto;
+  background-color: #f5f5f5;
 } 
   
 img { 
