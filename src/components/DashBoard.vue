@@ -1,15 +1,14 @@
 <template>
   <v-app>
     <ToolBar :username="username" @toggle-pane="togglePane"/>
-    <div class="split">
+    <div class="splitPanes">
       <div id="systemLibrary" @dblclick="togglePane">System library</div>
       <div id="project">
         Project
       </div>
       <div id="system">System
-        <!-- <img src="../assets/images/01.koudedistributiebron.svg" alt="svg"/> -->
         <div id="image-container">
-          <img src="../assets/images/02A.warmtepomp1.svg" alt="svg2"/>
+          <img src="../assets/images/02A.warmtepomp1.svg" alt="svg"/>
         </div>
       </div>
       <div id="systemConfiguration">System configuration</div>
@@ -25,11 +24,6 @@ export default {
   data() {
     return {
       isPaneClosed: false,
-      items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-        { title: 'Photos', icon: 'mdi-image' },
-        { title: 'About', icon: 'mdi-help-box' },
-      ],
       username: this.$route.params.username,
       currentZoom: 1,
     };
@@ -38,10 +32,11 @@ export default {
     ToolBar,
   },
   mounted() {
+    //Splits the panes
     this.splitInstance = Split(['#systemLibrary', '#project', '#system', '#systemConfiguration'], {
-      minSize: [60, 150, 150, 150], // Set minSize for each pane
-      sizes: [15, 15, 50, 20], // Optional: initial sizes in percentages
-      gutterSize: 10, // Size of the gutter between the panes
+      minSize: [60, 150, 150, 150],
+      sizes: [15, 20, 40, 20], 
+      gutterSize: 10,
       onDrag: () => {
         this.isPaneClosed = true; // Ensure state is updated on drag
       },
@@ -56,7 +51,7 @@ export default {
       gutters[0].addEventListener('dblclick', this.togglePane);
     }
 
-    //Zoomin svg  
+    //Zoom in on svg  
     const container = document.getElementById('image-container'); 
       
     container.addEventListener('wheel', (event) => {
@@ -66,16 +61,15 @@ export default {
   },
   methods: {
     togglePane() {
-      const pane1 = document.getElementById('split-0');
+      const pane1 = document.getElementById('systemLibrary');
       if (this.isPaneClosed) {
-        this.splitInstance.setSizes([15, 15, 50, 20]); // Reopen the pane
+        this.splitInstance.setSizes([15, 15, 50, 20]);
         pane1.style.display = 'block';
       } else {
-        this.splitInstance.collapse(0); // Collapse the pane
-        // this.splitInstance.setSizes([0, 20, 60, 20]);
+        this.splitInstance.collapse(0); 
         pane1.style.display = 'none';
       }
-      this.isPaneClosed = !this.isPaneClosed; // Toggle the closed state
+      this.isPaneClosed = !this.isPaneClosed; 
     },
     zoomImage(direction) {
       const minZoom = 1;
@@ -98,7 +92,7 @@ export default {
 </script>
 
 <style>
-.split {
+.splitPanes {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -128,7 +122,7 @@ export default {
   height: 100%; 
   width: 100%;
   overflow: auto;
-  background-color: #f5f5f5;
+  background-color: #6C7884;
 } 
   
 img { 
