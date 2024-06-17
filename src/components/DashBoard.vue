@@ -7,9 +7,7 @@
         Project
       </div>
       <div id="system">System
-        <div id="image-container">
-          <img src="../assets/images/02A.warmtepomp1.svg" alt="svg"/>
-        </div>
+        <SystemPane/>
       </div>
       <div id="systemConfiguration">System configuration</div>
     </div>
@@ -18,6 +16,7 @@
 
 <script>
 import ToolBar from './ToolBar.vue';
+import SystemPane from './SystemPane.vue'
 import Split from 'split.js';
 
 export default {
@@ -25,11 +24,11 @@ export default {
     return {
       isPaneClosed: false,
       username: this.$route.params.username,
-      currentZoom: 1,
     };
   },
   components: {
     ToolBar,
+    SystemPane
   },
   mounted() {
     //Splits the panes
@@ -51,13 +50,7 @@ export default {
       gutters[0].addEventListener('dblclick', this.togglePane);
     }
 
-    //Zoom in on svg  
-    const container = document.getElementById('image-container'); 
-      
-    container.addEventListener('wheel', (event) => {
-      const direction = event.deltaY > 0 ? -1 : 1;
-      this.zoomImage(direction);
-    });
+    
   },
   methods: {
     togglePane() {
@@ -70,22 +63,6 @@ export default {
         pane1.style.display = 'none';
       }
       this.isPaneClosed = !this.isPaneClosed; 
-    },
-    zoomImage(direction) {
-      const minZoom = 1;
-      const maxZoom = 5;
-      const stepSize = 0.1;
-
-      const newZoom = this.currentZoom + direction * stepSize;
-
-      if (newZoom < minZoom || newZoom > maxZoom) {
-        return;
-      }
-
-      this.currentZoom = newZoom;
-
-      const image = document.querySelector('#image-container img');
-      image.style.transform = `scale(${this.currentZoom})`;
     },
   }
 };
@@ -114,23 +91,4 @@ export default {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
 }
-
-#image-container { 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  height: 100%; 
-  width: 100%;
-  overflow: auto;
-  background-color: #6C7884;
-} 
-  
-img { 
-    max-width: 100%; 
-    margin: 20px;
-} 
-  
-#image-container img:hover { 
-  cursor: zoom-in; 
-} 
 </style>
