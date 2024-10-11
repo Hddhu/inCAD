@@ -1,6 +1,6 @@
 <template>
   <v-toolbar class="toolbar" color="primary" dark fixed>
-    <v-img class="toolbar-logo" height="56" src="../assets/images/incad_logo_small.png"></v-img>
+      <v-img max-height="100%" :max-width="200" cover inline src="../assets/images/incad_logo_small.png"></v-img>
     <v-btn icon @click="$emit('toggle-pane')">
       <v-icon>mdi-book-open-variant-outline</v-icon>
     </v-btn>
@@ -65,6 +65,7 @@ export default {
 </script>
 
 <style>
+
 .toolbar {
   flex: 0;
 }
@@ -74,8 +75,8 @@ export default {
 }
 
 .toolbar-logo {
-  /* margin-left: 10px; Adjust as needed */
-  max-height: 36px;
-  max-width: 77px;
+  margin-left: -20px;
+  margin-top: -20px;
+  max-width: 100px;
 }
 </style>

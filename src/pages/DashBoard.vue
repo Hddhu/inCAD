@@ -40,7 +40,7 @@ export default {
         this.isPaneClosed = true; // Ensure state is updated on drag
       },
       onDragEnd: () => {
-        this.isPaneClosed = true; // Ensure state is updated on drag end
+        this.isPaneClosed = false; // Ensure state is updated on drag end
       }
     });
 
