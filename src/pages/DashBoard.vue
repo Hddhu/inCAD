@@ -6,7 +6,7 @@
         <v-treeview
         v-model:selected="selection"
           :items="items"
-          :select-strategy="selectionType"
+          :select-strategy="'single-independent'"
           item-value="id"
           return-object
           selectable
@@ -24,6 +24,14 @@
           >
             {{ node.title }}
           </div>
+          <v-treeview
+        v-model:selected="selection2"
+          :items="selection"
+          :select-strategy="selectionType"
+          item-value="id"
+          return-object
+          selectable
+        ></v-treeview>
         </template>
       </div>
       <div id="system">System
@@ -47,6 +55,7 @@ export default {
       username: this.$route.params.username,
       selectionType: 'single-leaf',
       selection: [],
+      selection2: [],
       items: [
         {
           id: 1,
@@ -58,13 +67,31 @@ export default {
               id: 4,
               title: 'Child #3',
               children: [
-                { id: 5, title: 'Grandchild #1' },
+                { id: 5, title: 'Grandchild' },
                 { id: 6, title: 'Grandchild #2' },
               ],
             },
           ],
         },
           ],
+          Grandchild: [
+          {
+          id: 1,
+          title: 'Root',
+          children: [
+            { id: 2, title: 'ChildX #1' },
+            { id: 3, title: 'ChildX #2' },
+            {
+              id: 4,
+              title: 'Child #3',
+              children: [
+                { id: 5, title: 'GrandchildX #1' },
+                { id: 6, title: 'GrandchildX #2' },
+              ],
+            },
+          ],
+        },
+          ]
     };
   },
   components: {
