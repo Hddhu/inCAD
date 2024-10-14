@@ -2,9 +2,29 @@
   <v-app>
     <ToolBar :username="username" @toggle-pane="togglePane"/>
     <div class="splitPanes">
-      <div id="systemLibrary" @dblclick="togglePane">System library</div>
+      <div id="systemLibrary" @dblclick="togglePane">System library
+        <v-treeview
+        v-model:selected="selection"
+          :items="items"
+          :select-strategy="selectionType"
+          item-value="id"
+          return-object
+          selectable
+        ></v-treeview>
+</div>
       <div id="project">
         Project
+        <template v-if="!selection.length">
+          No nodes selected.
+        </template>
+        <template v-else>
+          <div
+            v-for="node in selection"
+            :key="node.id"
+          >
+            {{ node.title }}
+          </div>
+        </template>
       </div>
       <div id="system">System
         <SystemPane/>
@@ -17,13 +37,34 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import SystemPane from '../components/SystemPane.vue'
-import Split from 'split.js'
+import Split from 'split.js'  
 
 export default {
+  
   data() {
     return {
       isPaneClosed: false,
       username: this.$route.params.username,
+      selectionType: 'single-leaf',
+      selection: [],
+      items: [
+        {
+          id: 1,
+          title: 'Root',
+          children: [
+            { id: 2, title: 'Child #1' },
+            { id: 3, title: 'Child #2' },
+            {
+              id: 4,
+              title: 'Child #3',
+              children: [
+                { id: 5, title: 'Grandchild #1' },
+                { id: 6, title: 'Grandchild #2' },
+              ],
+            },
+          ],
+        },
+          ],
     };
   },
   components: {
