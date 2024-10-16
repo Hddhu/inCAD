@@ -1,41 +1,26 @@
 <template>
   <v-app>
-    <ToolBar :username="username" @toggle-pane="togglePane"/>
+    <ToolBar :username="username" @toggle-pane="togglePane" />
     <div class="splitPanes">
       <div id="systemLibrary" @dblclick="togglePane">System library
-        <v-treeview
-        v-model:selected="selection"
-          :items="items"
-          :select-strategy="'single-independent'"
-          item-value="id"
-          return-object
-          selectable
-        ></v-treeview>
-</div>
+        <v-treeview v-model:selected="selection" :items="items" :select-strategy="'single-independent'" item-value="id"
+          return-object @update:selected="GetInfo(selection)"></v-treeview>
+      </div>
       <div id="project">
         Project
         <template v-if="!selection.length">
           No nodes selected.
         </template>
         <template v-else>
-          <div
-            v-for="node in selection"
-            :key="node.id"
-          >
+          <div v-for="node in selection" :key="node.id">
             {{ node.title }}
+            <v-treeview v-model:selected="selection3" :items="selection2" :select-strategy="selectionType" item-value="id"
+              return-object></v-treeview>
           </div>
-          <v-treeview
-        v-model:selected="selection2"
-          :items="selection"
-          :select-strategy="selectionType"
-          item-value="id"
-          return-object
-          selectable
-        ></v-treeview>
         </template>
       </div>
       <div id="system">System
-        <SystemPane/>
+        <SystemPane />
       </div>
       <div id="systemConfiguration">System configuration</div>
     </div>
@@ -45,10 +30,10 @@
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import SystemPane from '../components/SystemPane.vue'
-import Split from 'split.js'  
+import Split from 'split.js'
 
 export default {
-  
+
   data() {
     return {
       isPaneClosed: false,
@@ -56,6 +41,7 @@ export default {
       selectionType: 'single-leaf',
       selection: [],
       selection2: [],
+      selection3: [],
       items: [
         {
           id: 1,
@@ -73,11 +59,11 @@ export default {
             },
           ],
         },
-          ],
-          Grandchild: [
-          {
-          id: 1,
-          title: 'Root',
+      ],
+      Grandchild: [
+        {
+          Topid: 2,
+          title: 'Child 1',
           children: [
             { id: 2, title: 'ChildX #1' },
             { id: 3, title: 'ChildX #2' },
@@ -91,7 +77,23 @@ export default {
             },
           ],
         },
-          ]
+        {
+          Topid: 3,
+          title: 'Child 2',
+          children: [
+            { id: 8, title: 'ChildXX #1' },
+            { id: 9, title: 'ChildXX #2' },
+            {
+              id: 10,
+              title: 'Child #3',
+              children: [
+                { id: 11, title: 'GrandchildXX #1' },
+                { id: 12, title: 'GrandchildXX #2' },
+              ],
+            },
+          ],
+        },
+      ]
     };
   },
   components: {
@@ -102,7 +104,7 @@ export default {
     //Splits the panes
     this.splitInstance = Split(['#systemLibrary', '#project', '#system', '#systemConfiguration'], {
       minSize: [60, 150, 150, 150],
-      sizes: [15, 20, 40, 20], 
+      sizes: [15, 20, 40, 20],
       gutterSize: 10,
       onDrag: () => {
         this.isPaneClosed = true; // Ensure state is updated on drag
@@ -118,7 +120,7 @@ export default {
       gutters[0].addEventListener('dblclick', this.togglePane);
     }
 
-    
+
   },
   methods: {
     togglePane() {
@@ -127,11 +129,19 @@ export default {
         this.splitInstance.setSizes([15, 15, 50, 20]);
         pane1.style.display = 'block';
       } else {
-        this.splitInstance.collapse(0); 
+        this.splitInstance.collapse(0);
         pane1.style.display = 'none';
       }
-      this.isPaneClosed = !this.isPaneClosed; 
+      this.isPaneClosed = !this.isPaneClosed;
     },
+    GetInfo(e) {
+      this.selection2 = [];
+      this.Grandchild.forEach(item => {
+          if (item.Topid === e[0].id) {
+            this.selection2.push(item);
+          }
+      });
+    }
   }
 };
 </script>
