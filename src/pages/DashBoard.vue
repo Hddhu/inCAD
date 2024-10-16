@@ -9,11 +9,9 @@
       <div id="project">
         Project
         <template v-if="!selection.length">
-          No nodes selected.
         </template>
         <template v-else>
           <div v-for="node in selection" :key="node.id">
-            {{ node.title }}
             <v-treeview v-model:selected="selection3" :items="selection2" :select-strategy="selectionType" item-value="id"
               return-object></v-treeview>
           </div>
