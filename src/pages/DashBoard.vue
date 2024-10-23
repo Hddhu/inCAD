@@ -2,25 +2,30 @@
   <v-app>
     <ToolBar :username="username" @toggle-pane="togglePane" />
     <div class="splitPanes">
-      <div id="systemLibrary" @dblclick="togglePane">System library
-        <v-treeview v-model:selected="selection" :items="items" :select-strategy="'single-independent'" item-value="id"
-          return-object @update:selected="GetInfo(selection)"></v-treeview>
+      <div id="systemLibrary" @dblclick="togglePane">
+        <div class="bg-grey-lighten-2 pl-2">System library</div>
+        <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
+          :select-strategy="'single-independent'" item-value="id" return-object
+          @update:selected="GetInfo(selection)"></v-treeview>
       </div>
       <div id="project">
-        Project
+        <div class="bg-grey-lighten-2 pl-2">Project</div>
         <template v-if="!selection.length">
         </template>
         <template v-else>
           <div v-for="node in selection" :key="node.id">
-            <v-treeview v-model:selected="selection3" :items="selection2" :select-strategy="selectionType" item-value="id"
-              return-object></v-treeview>
+            <v-treeview :density="'compact'" v-model:selected="selection3" :items="selection2"
+              :select-strategy="selectionType" item-value="id" return-object></v-treeview>
           </div>
         </template>
       </div>
-      <div id="system">System
+      <div id="system">
+        <div class="bg-grey-lighten-2 pl-2">System</div>
         <SystemPane />
       </div>
-      <div id="systemConfiguration">System configuration</div>
+      <div id="systemConfiguration">
+        <div class="bg-grey-lighten-2 pl-2">System configuration</div>
+      </div>
     </div>
   </v-app>
 </template>
@@ -102,7 +107,7 @@ export default {
     //Splits the panes
     this.splitInstance = Split(['#systemLibrary', '#project', '#system', '#systemConfiguration'], {
       minSize: [60, 150, 150, 150],
-      sizes: [15, 20, 40, 20],
+      sizes: [20, 20, 40, 20],
       gutterSize: 10,
       onDrag: () => {
         this.isPaneClosed = true; // Ensure state is updated on drag
@@ -124,7 +129,7 @@ export default {
     togglePane() {
       const pane1 = document.getElementById('systemLibrary');
       if (this.isPaneClosed) {
-        this.splitInstance.setSizes([15, 15, 50, 20]);
+        this.splitInstance.setSizes([20, 20, 50, 30]);
         pane1.style.display = 'block';
       } else {
         this.splitInstance.collapse(0);
@@ -135,9 +140,9 @@ export default {
     GetInfo(e) {
       this.selection2 = [];
       this.Grandchild.forEach(item => {
-          if (item.Topid === e[0].id) {
-            this.selection2.push(item);
-          }
+        if (item.Topid === e[0].id) {
+          this.selection2.push(item);
+        }
       });
     }
   }
