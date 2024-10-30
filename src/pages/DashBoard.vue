@@ -10,14 +10,14 @@
       </div>
       <div id="project">
         <div class="bg-grey-lighten-2 pl-2">Project</div>
-        <template v-if="!selection.length">
+        <!-- <template v-if="!selection.length">
         </template>
-        <template v-else>
-          <div v-for="node in selection" :key="node.id">
-            <v-treeview :density="'compact'" v-model:selected="selection3" :items="selection2"
-              :select-strategy="selectionType" item-value="id" return-object></v-treeview>
-          </div>
-        </template>
+        <template>
+          <div v-for="node in selection" :key="node.id"> -->
+            <v-treeview :density="'compact'" v-model:selected="selection3" :items="Grandchild"
+              :select-strategy="'single-leaf'" item-value="id" return-object></v-treeview>
+          <!-- </div>
+        </template> -->
       </div>
       <div id="system">
         <div class="bg-grey-lighten-2 pl-2">System</div>
@@ -41,7 +41,6 @@ export default {
     return {
       isPaneClosed: false,
       username: this.$route.params.username,
-      selectionType: 'single-leaf',
       selection: [],
       selection2: [],
       selection3: [],
@@ -106,7 +105,7 @@ export default {
   mounted() {
     //Splits the panes
     this.splitInstance = Split(['#systemLibrary', '#project', '#system', '#systemConfiguration'], {
-      minSize: [60, 150, 150, 150],
+      minSize: [150, 150, 150, 150],
       sizes: [20, 20, 40, 20],
       gutterSize: 10,
       onDrag: () => {
