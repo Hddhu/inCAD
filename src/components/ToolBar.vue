@@ -66,9 +66,9 @@
         </v-menu>
       </div>
     </div>
-    <v-btn icon @click="$emit('toggle-pane')">
+    <!-- <v-btn icon @click="$emit('toggle-pane')">
       <v-icon>mdi-book-open-variant-outline</v-icon>
-    </v-btn>
+    </v-btn> -->
     <div class="text-center">
       <v-menu location="start" offset-y>
         <template v-slot:activator="{ on, attrs }">

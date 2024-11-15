@@ -1,39 +1,39 @@
 <template>
   <v-app>
-    <ToolBar :username="username" @toggle-pane="togglePane" />
-    <div class="splitPanes">
-      <div id="systemLibrary" @dblclick="togglePane">
-        <div class="bg-grey-lighten-2 pl-2">System library</div>
-        <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
-          :select-strategy="'single-independent'" item-value="id" return-object
-          @update:selected="GetInfo(selection)"></v-treeview>
-      </div>
-      <div id="project">
-        <div class="bg-grey-lighten-2 pl-2">Project</div>
-        <!-- <template v-if="!selection.length">
-        </template>
-        <template>
-          <div v-for="node in selection" :key="node.id"> -->
-            <v-treeview :density="'compact'" v-model:selected="selection3" :items="Grandchild"
-              :select-strategy="'single-leaf'" item-value="id" return-object></v-treeview>
-          <!-- </div>
-        </template> -->
-      </div>
-      <div id="system">
-        <div class="bg-grey-lighten-2 pl-2">System</div>
-        <SystemPane />
-      </div>
-      <div id="systemConfiguration">
+    <ToolBar :username="username" />
+    <splitpanes class="default-theme">
+      <pane v-if="isPaneClosed" :min-size="20" @dblclick="togglePane">
+          <div class="bg-grey-lighten-2 pl-2 flex justify-between">System library<svg-icon type="mdi" :path="mdiMenuLeftIcon" class="mr-2"></svg-icon></div>
+          <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
+            :select-strategy="'single-independent'" item-value="id" return-object
+            @update:selected="GetInfo(selection)"></v-treeview>
+      </pane>
+      <pane v-else :size="1.5" :max-size="2" :min-size="1.5" class="bg-grey-lighten-2" @dblclick="togglePane">
+        <!-- icon is pointed right through the rotation of the div -->
+        <div class="mt-2 texto rotate-180 justify-start items-start flex">System library<svg-icon type="mdi" :path="mdiMenuLeftIcon"></svg-icon></div>
+      </pane>
+      <pane>
+          <div class="bg-grey-lighten-2 pl-2">Project</div>
+          <v-treeview :density="'compact'" v-model:selected="selection3" :items="Grandchild"
+            :select-strategy="'single-leaf'" item-value="id" return-object></v-treeview>
+      </pane>
+      <pane>
+          <div class="bg-grey-lighten-2 pl-2">System</div>
+          <SystemPane />
+      </pane>
+      <pane>
         <div class="bg-grey-lighten-2 pl-2">System configuration</div>
-      </div>
-    </div>
+      </pane>
+    </splitpanes>
   </v-app>
 </template>
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
-import SystemPane from '../components/SystemPane.vue'
-import Split from 'split.js'
+import { Splitpanes, Pane } from 'splitpanes'
+import 'splitpanes/dist/splitpanes.css'
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiMenuLeft } from '@mdi/js'
 
 export default {
 
@@ -44,6 +44,7 @@ export default {
       selection: [],
       selection2: [],
       selection3: [],
+      mdiMenuLeftIcon: mdiMenuLeft,
       items: [
         {
           id: 1,
@@ -100,40 +101,24 @@ export default {
   },
   components: {
     ToolBar,
-    SystemPane
+    // SystemPane,
+    Splitpanes,
+    Pane,
+    SvgIcon
   },
   mounted() {
-    //Splits the panes
-    this.splitInstance = Split(['#systemLibrary', '#project', '#system', '#systemConfiguration'], {
-      minSize: [150, 150, 150, 150],
-      sizes: [20, 20, 40, 20],
-      gutterSize: 10,
-      onDrag: () => {
-        this.isPaneClosed = true; // Ensure state is updated on drag
-      },
-      onDragEnd: () => {
-        this.isPaneClosed = false; // Ensure state is updated on drag end
-      }
-    });
-
-    // Add double-click event listener to the gutter after Split.js initializes
-    const gutters = document.querySelectorAll('.gutter');
-    if (gutters.length > 0) {
-      gutters[0].addEventListener('dblclick', this.togglePane);
-    }
-
-
+   
   },
   methods: {
     togglePane() {
-      const pane1 = document.getElementById('systemLibrary');
-      if (this.isPaneClosed) {
-        this.splitInstance.setSizes([20, 20, 50, 30]);
-        pane1.style.display = 'block';
-      } else {
-        this.splitInstance.collapse(0);
-        pane1.style.display = 'none';
-      }
+      // const pane1 = document.getElementById('systemLibrary');
+      // if (this.isPaneClosed) {
+      //   this.splitInstance.setSizes([20, 20, 50, 30]);
+      //   pane1.style.display = 'block';
+      // } else {
+      //   this.splitInstance.collapse(0);
+      //   pane1.style.display = 'none';
+      // }
       this.isPaneClosed = !this.isPaneClosed;
     },
     GetInfo(e) {
@@ -170,5 +155,10 @@ export default {
 .gutter.gutter-horizontal {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
+}
+
+.texto {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 </style>

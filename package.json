@@ -14,6 +14,7 @@
     "core-js": "^3.37.1",
     "roboto-fontface": "*",
     "split.js": "^1.6.5",
+    "splitpanes": "^3.1.5",
     "vue": "^3.4.31",
     "vuetify": "^3.7.2"
   },
