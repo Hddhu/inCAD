@@ -2,26 +2,29 @@
   <v-app>
     <ToolBar :username="username" />
     <splitpanes class="default-theme">
-      <pane v-if="isPaneClosed" :min-size="20" @dblclick="togglePane">
-          <div class="bg-grey-lighten-2 pl-2 flex justify-between">System library<svg-icon type="mdi" :path="mdiMenuLeftIcon" class="mr-2"></svg-icon></div>
-          <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
-            :select-strategy="'single-independent'" item-value="id" return-object
-            @update:selected="GetInfo(selection)"></v-treeview>
+      <pane v-if="!isPaneClosed" :min-size="15" @dblclick="togglePane" class="bg-white">
+        <div class="bg-grey-lighten-2 pl-2 flex justify-between">System library<button @click="togglePane"><svg-icon
+              type="mdi" :path="mdiMenuLeftIcon" class="mr-2"></svg-icon></button></div>
+        <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
+          :select-strategy="'single-independent'" item-value="id" @update:selected="GetInfo(selection)"></v-treeview>
+
       </pane>
-      <pane v-else :size="1.5" :max-size="2" :min-size="1.5" class="bg-grey-lighten-2" @dblclick="togglePane">
-        <!-- icon is pointed right through the rotation of the div -->
-        <div class="mt-2 texto rotate-180 justify-start items-start flex">System library<svg-icon type="mdi" :path="mdiMenuLeftIcon"></svg-icon></div>
+      <pane v-else :size="1.5" :max-size="1.5" :min-size="1.5" class="bg-grey-lighten-2" @dblclick="togglePane">
+        <!-- icon is pointed right through the rotation of the div, even though it says left -->
+        <div class="mt-2 texto rotate-180 justify-start items-start flex">System library<button
+            @click="togglePane"><svg-icon type="mdi" :path="mdiMenuLeftIcon" class="mt-2 mb-[-4px]"></svg-icon></button>
+        </div>
       </pane>
-      <pane>
-          <div class="bg-grey-lighten-2 pl-2">Project</div>
-          <v-treeview :density="'compact'" v-model:selected="selection3" :items="Grandchild"
-            :select-strategy="'single-leaf'" item-value="id" return-object></v-treeview>
+      <pane class="bg-white" :min-size="15">
+        <div class="bg-grey-lighten-2 pl-2">Project</div>
+        <v-treeview :density="'compact'" v-model:selected="selection2" :items="Grandchild"
+          :select-strategy="'single-leaf'" item-value="id" return-object></v-treeview>
       </pane>
-      <pane>
-          <div class="bg-grey-lighten-2 pl-2">System</div>
-          <SystemPane />
+      <pane class="bg-white" :min-size="15">
+        <div class="bg-grey-lighten-2 pl-2">System</div>
+        <SystemPane />
       </pane>
-      <pane>
+      <pane class="bg-white" :min-size="15">
         <div class="bg-grey-lighten-2 pl-2">System configuration</div>
       </pane>
     </splitpanes>
@@ -43,7 +46,6 @@ export default {
       username: this.$route.params.username,
       selection: [],
       selection2: [],
-      selection3: [],
       mdiMenuLeftIcon: mdiMenuLeft,
       items: [
         {
@@ -65,7 +67,7 @@ export default {
       ],
       Grandchild: [
         {
-          Topid: 2,
+          id: 2,
           title: 'Child 1',
           children: [
             { id: 2, title: 'ChildX #1' },
@@ -81,7 +83,7 @@ export default {
           ],
         },
         {
-          Topid: 3,
+          id: 7,
           title: 'Child 2',
           children: [
             { id: 8, title: 'ChildXX #1' },
@@ -99,41 +101,54 @@ export default {
       ]
     };
   },
-  components: {
-    ToolBar,
-    // SystemPane,
-    Splitpanes,
-    Pane,
-    SvgIcon
-  },
-  mounted() {
-   
-  },
   methods: {
     togglePane() {
-      // const pane1 = document.getElementById('systemLibrary');
-      // if (this.isPaneClosed) {
-      //   this.splitInstance.setSizes([20, 20, 50, 30]);
-      //   pane1.style.display = 'block';
-      // } else {
-      //   this.splitInstance.collapse(0);
-      //   pane1.style.display = 'none';
-      // }
       this.isPaneClosed = !this.isPaneClosed;
     },
     GetInfo(e) {
-      this.selection2 = [];
-      this.Grandchild.forEach(item => {
-        if (item.Topid === e[0].id) {
-          this.selection2.push(item);
+      console.log(e[0]);
+      // this.selection2 = [];
+      // this.Grandchild.forEach(item => {
+      //   if (item.Topid === e[0].id) {
+      //     this.selection2.push(item);
+      //   }
+      // });
+      this.items.forEach(item => {
+        if (item.children != null) {
+          item.children.forEach(item => {
+            if (item.children != null) {
+              item.children.forEach(item => {
+                if (item.id === e[0]) {
+                  this.Grandchild.push(item);
+                }
+              })
+            }
+            if (item.id === e[0]) {
+              this.Grandchild.push(item);
+            }
+          })
         }
-      });
-    }
-  }
+        if (item.id === e[0]) {
+          this.Grandchild.push(item);
+        }
+      })
+    },
+  },
+  components: {
+    ToolBar,
+    Splitpanes,
+    Pane,
+    SvgIcon,
+  },
+
 };
 </script>
 
 <style>
+.splitpanes__splitter {
+  background-color: #e0e0e0 !important;
+}
+
 .splitPanes {
   display: flex;
   flex-direction: row;
