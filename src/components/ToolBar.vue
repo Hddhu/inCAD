@@ -27,7 +27,7 @@
             <v-list-item v-for="(item, index) in domainItems" :key="index" :value="index"
               @click="handleItemClick(item)">
               <v-list-item-title class="flex">
-                <svg-icon v-if="item.title === domainStatus" type="mdi" :path="item.icon" class="mr-2"></svg-icon>
+                <svg-icon v-if="item.title === this.domainStatus || this.firstRender != '' && index === 0" type="mdi" :path="item.icon" class="mr-2"></svg-icon>
                 <svg-icon v-else type="mdi" :path="''" class="mr-2"></svg-icon>{{
                   item.title
                 }}</v-list-item-title>
@@ -93,6 +93,7 @@ import { mdiPlus, mdiFolder, mdiBookmark, mdiClose, mdiRepeatVariant, mdiPencil,
 
 export default {
   name: 'ToolBar',
+  firstRender: 'true',
   props: ['username'],
   domainStatus: "HVAC",
   data: () => ({
@@ -140,9 +141,11 @@ export default {
       //TODO Log out, are you sure
     },
     domainHVAC() {
+      this.firstRender = '';
       this.domainStatus = "HVAC";
     },
     domainAssimilation() {
+      this.firstRender = '';
       this.domainStatus = "Assimilation";
     }
   },
