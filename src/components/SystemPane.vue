@@ -48,7 +48,7 @@ export default {
   height: 100%; 
   width: 100%;
   overflow: auto;
-  background-color: #6C7884;
+  background-color: #f3f4f6;
 } 
   
 img { 
