@@ -3,8 +3,8 @@
     <ToolBar :username="username" />
     <splitpanes class="default-theme splitPanes bg-gray-100">
       <pane v-if="!isPaneClosed" :min-size="15" @dblclick="togglePane" class="bg-white rounded-xl shadow my-3">
-        <div class="p-2 flex justify-between">System library<button @click="togglePane"><svg-icon
-              type="mdi" :path="mdiMenuLeftIcon" class="mr-2"></svg-icon></button></div>
+        <div class="p-2 flex justify-between">System library<button @click="togglePane"><svg-icon type="mdi"
+              :path="mdiMenuLeftIcon" class="mr-2"></svg-icon></button></div>
         <v-treeview :density="'compact'" v-model:selected="selection" :items="items"
           :select-strategy="'single-independent'" item-value="id" @update:selected="GetInfo(selection)"></v-treeview>
 
@@ -44,7 +44,6 @@
               <ButtonNUNU :title="'I/O Points'" />
               <ButtonNUNU :title="'Documentation'" />
               <ButtonNUNU :title="'Motor/control Current'" />
-              <!--  :icon="mdiExportIcon" -->
             </div>
           </div>
           <div class="flex flex-col mx-2 text-sm h-full max-h-[80%]">
