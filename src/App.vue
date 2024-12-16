@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-  //
+//
 </script>
 
 <style>
@@ -23,17 +23,5 @@
   height: 100vh;
 }
 </style>
-<!-- 
-<template>
-  <nav>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/dashboard">Go to About</RouterLink>
-  </nav>
-  <main>
-    <v-container fluid class="grey lighten-5">
-      <RouterView />
-    </v-container>
-  </main>
-</template> -->
 
 
