@@ -4,7 +4,7 @@
          <v-container fluid fill-height class="h-100">
             <v-layout class="align-center justify-center h-100">
                   <v-card class="elevation-12 w-33">
-                     <v-toolbar dark color="primary">
+                     <v-toolbar color="primary" class="text-white p-4">
                         <v-toolbar-title>{{ isRegister ? stateObj.register.name : stateObj.login.name }}
                            form</v-toolbar-title>
                      </v-toolbar>
