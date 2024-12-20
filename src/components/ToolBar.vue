@@ -1,8 +1,8 @@
 <template>
   <v-toolbar class="toolbar" color="primary" dark fixed>
-    <div class="flex">
+    <div class="d-flex">
       <p class="font-bold ml-4 text-2xl">InCAD</p>
-      <div class="flex gap-x-4 ml-4">
+      <div class="d-flex gap-x-4 ml-4">
         <v-menu>
           <template v-slot:activator="{ props }">
             <v-btn color="white" v-bind="props">
@@ -11,7 +11,7 @@
           </template>
           <v-list>
             <v-list-item v-for="(item, index) in fileItems" :key="index" :value="index" @click="handleItemClick(item)">
-              <v-list-item-title class="flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
+              <v-list-item-title class="d-flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
                 item.title
               }}</v-list-item-title>
             </v-list-item>
@@ -26,7 +26,7 @@
           <v-list>
             <v-list-item v-for="(item, index) in domainItems" :key="index" :value="index"
               @click="handleItemClick(item)">
-              <v-list-item-title class="flex">
+              <v-list-item-title class="d-d-flex">
                 <svg-icon v-if="item.title === this.domainStatus || this.firstRender != '' && index === 0" type="mdi" :path="item.icon" class="mr-2"></svg-icon>
                 <svg-icon v-else type="mdi" :path="''" class="mr-2"></svg-icon>{{
                   item.title
@@ -43,7 +43,7 @@
           <v-list>
             <v-list-item v-for="(item, index) in projectItems" :key="index" :value="index"
               @click="handleItemClick(item)">
-              <v-list-item-title class="flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
+              <v-list-item-title class="d-flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
                 item.title
               }}</v-list-item-title>
             </v-list-item>
@@ -58,7 +58,7 @@
           <v-list>
             <v-list-item v-for="(item, index) in manageItems" :key="index" :value="index"
               @click="handleItemClick(item)">
-              <v-list-item-title class="flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
+              <v-list-item-title class="d-flex"><svg-icon type="mdi" :path="item.icon" class="mr-2"></svg-icon>{{
                 item.title
               }}</v-list-item-title>
             </v-list-item>
